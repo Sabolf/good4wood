@@ -56,6 +56,8 @@ async def createOrder(orderInfo: dict):
         orderID = orderInfo["orderID"]
         productID = orderInfo["productID"]
         quantity = orderInfo["quantity"]
+        totalCost = orderInfo["totalCost"]
+        currency = orderInfo["currency"]
         lockerLoc = orderInfo["lockerLoc"]
         
         
@@ -64,6 +66,8 @@ async def createOrder(orderInfo: dict):
             "orderID" : orderID,
             "productID" : productID,
             "quantity" : quantity,
+            "totalCost" : totalCost,
+            "currency" : currency,
             "lockerLoc" : lockerLoc,
             "status" : "pending"
         }
