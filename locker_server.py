@@ -3,20 +3,24 @@ import asyncio
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
+app = FastAPI()
 # ----------------------------GENERAL INFO ABOUT LOCKER
+locked = True
+
 CENTRAL_SERVER_IP = "http://127.0.0.1:8000"
 
 locker_id_info = {
     "name" : "Chicago01",
     "location" : "ChicagoAddress",
-    "ip" : "static IP",
+    "ip" : "http://127.0.0.1:8001",
+    "id" : "1234"
 }
 
 locker_status_info = {
     "status" : "on",
     "battery" : "77%",
     "signal-strength" : "50dBm",
-    
+    "locked" : locked
 }
 
 # ---------------------------------------------------------------------------------
@@ -28,8 +32,10 @@ async def send_update():
         try:
     #on/off /temp/ humidity/ 
             update_json = {
+                "id" : locker_id_info["id"],
+                "ip" : locker_id_info['ip'],
                 "status" : locker_status_info["status"],
-                "battery" : locker_status_info["battery"]
+                "battery" : locker_status_info["battery"],
             }
     
             async with httpx.AsyncClient() as client:
@@ -40,9 +46,13 @@ async def send_update():
                 # return response.json()
                 print(response.json())
         except Exception as e:
-            print("ISSUE")
+            print(str(CENTRAL_SERVER_IP + " " + str(e)))
             
         await asyncio.sleep(30)
+
+
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- open-locker
+# ----------------------- POST [ RESPONSE ] 3
 
 
 
@@ -72,3 +82,35 @@ def read_root():
 async def locker_status():
     return {"TEST STATUS" : "OFF"}
 # -------------------------------------------------------------
+
+# --------------------------GET [ RESPONSE ] 3
+@app.get("/open-locker")
+async def openLockerDoor():
+    global locked
+    
+    print("Opening door...")
+    
+    if not locked:
+        return{
+            "lockerDoor" : "already open"
+        }
+    locked = False
+    print("Lock Disengaged...")
+    return {
+        "locked" : locked
+    }
+    
+# --------------------------get [SELF CHANGE] 4
+@app.get("/close-locker")
+async def openLockerDoor():
+    global locked
+    
+    print("Door was closed successfully")
+    
+    
+    locked = True
+    print("Lock Engaged...")
+    return {
+        "locked" : locked
+    }
+    
