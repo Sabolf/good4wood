@@ -203,7 +203,7 @@ async def requestOpenDoor(orderAndLocation : dict):
             # Some sort of math that compares the gps locations 
             inProximity = True
             
-            if (inProximity):
+            if (inProximity and checkIfOrderPaid(orderID)):
                 # -----------------------------------------------# POST [REQUEST] 3
                 #  -------------------------------------------- UNLOCK DOOR
             
@@ -241,4 +241,10 @@ async def requestOpenDoor(orderAndLocation : dict):
             "TRACE" : str(traceback.print_exc())
 
         }
-    
+        
+        # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= VIEW DASHBOARD
+        # [ GET ] RESPONSE
+@app.get("/view-dashboard")
+async def viewDashboardInformation():
+    return {"dashboard" : fakeDataBaseLockers}
+            
