@@ -247,4 +247,16 @@ async def requestOpenDoor(orderAndLocation : dict):
 @app.get("/view-dashboard")
 async def viewDashboardInformation():
     return {"dashboard" : fakeDataBaseLockers}
+
+        # =--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= EMERGENCY OPEN
+@app.post("/emergency-open")
+async def emergencyOpen(ip : dict):
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(ip['lockerIp'] + "/open-locker")
+            return(response.json())
+    except Exception as e:
+        return {"Error" : str(e)}
+    
+    
             

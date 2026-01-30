@@ -83,7 +83,7 @@ async def locker_status():
     return {"TEST STATUS" : "OFF"}
 # -------------------------------------------------------------
 
-# --------------------------GET [ RESPONSE ] 3
+# --------------------------GET [ RESPONSE ] 3   
 @app.get("/open-locker")
 async def openLockerDoor():
     global locked
