@@ -1,3 +1,7 @@
+#2 addresses for every locker
+# one door can only be open at a time
+#add more lockers
+
 from typing import Union
 import httpx
 from fastapi import FastAPI
@@ -124,6 +128,14 @@ async def displayOrders():
     return {
         "orders" : fakeDataBaseOrders
     }
+    
+    # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- SHOW ALL COMPLETED ORDERS
+@app.get("/display-completed-orders")
+async def displayOrders():
+    return {
+        "orders" : fakeDataBaseCompletedOrders
+    }
+
 
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- INITIATE PAYMENT
 @app.post("/initiate-payment")
@@ -222,6 +234,7 @@ async def requestOpenDoor(orderAndLocation : dict):
                             tmp = item
                             del fakeDataBaseOrders[i]
                             
+                            tmp['status'] = "completed"
                             fakeDataBaseCompletedOrders.append(tmp)
                             break
                         
