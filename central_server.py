@@ -1,6 +1,7 @@
 # SERVER MUST HAVE CODES OF THE LOCKERS NOT LOCKERS GIVING CENTRAL 
 
-#2 addresses for every locker
+#2 addresses for every compartment
+
 # one door can only be open at a time
 #add more lockers
 

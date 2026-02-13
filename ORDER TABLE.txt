@@ -1,26 +1,45 @@
-ORDER TABLE
+Central Server
+
+MySQL Databse:
+- Table: Locker 
+(
+    symbol uniq, primary key, name, 
+    status (online, offline),  lastSync dateTime., 
+    temperature…., lat, long
+)
 
 
-LOCKERS TABLE
-A
-B
-C
+- Table: LockerCompartment 
+(
+    id, lockerSymbol FK, lock_address, 
+    contractoron_address, status, code_to_open uniq (lockerSymbol ))
 
-COMPARTMENT TABLE
-symbol:z Locker: 1   Fk   A
-symbol:y Locker: 2   Fk   A
-symbol:x Locker: 3   Fk   A
+- Table: 
+Task id, (task for locker), lockerSymbol FK, 
+datatieme, task, status – one action for each locker (status = 1), result, resultMessage
 
-symbol:w Locker: 1   Fk   B
-symbol:r Locker: 2   Fk   B
-symbol:t Locker: 3   Fk   B
 
-symbol:u Locker: 1   Fk   C
-symbol:v Locker: 2   Fk   C
-symbol:u Locker: 3   Fk   C
 
-TASK TABLE
-Fk A    action: idle
-Fk B    action: open 
-Fk C    action: idle
 
+POST /set-action
+{
+„action”:”open”,
+„locker”: symbol”,
+„code”: „{code to open}”,
+„userLocalization”: { „lang”: xx, „lat”:xxx
+}
+save it in a Task table
+
+POST /update-status
+{
+„locker”:””
+}
+
+
+as a result return taskObject {   } and mark as read and change code to lockerComparment object
+
+
+Locker Server
+
+1. display website and tak to Central Server API
+2. in a loop (every second) update status and get task to do.
