@@ -1,3 +1,5 @@
+# SERVER MUST HAVE CODES OF THE LOCKERS NOT LOCKERS GIVING CENTRAL 
+
 #2 addresses for every locker
 # one door can only be open at a time
 #add more lockers
@@ -12,7 +14,7 @@ import traceback
 
 app = FastAPI()
 
-# FAKE DATABASE OF ORDERS
+# FAKE DATABASE OF ORDERS     SWITCH TO A REAL DATABASE
 fakeDataBaseOrders = []
 fakeDataBaseCompletedOrders = []
 
@@ -54,6 +56,8 @@ async def check_locker_status():
 
 #-------------------- POST [ RESPONSE ] 2
 # [ Locker Battery, TimeStamp]  --- can change later #####
+
+
 @app.post("/locker-update")
 async def receive_locker_update(data: dict):
     print("SUCCESS: ", data, " received")
@@ -218,7 +222,7 @@ async def requestOpenDoor(orderAndLocation : dict):
             if (inProximity and checkIfOrderPaid(orderID)):
                 # -----------------------------------------------# POST [REQUEST] 3
                 #  -------------------------------------------- UNLOCK DOOR
-            
+                # USE CODE TO OPEN 
                 async with httpx.AsyncClient() as client:
                     response = await client.get(lockerIp + "/open-locker")
                     print(response)

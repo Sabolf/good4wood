@@ -1,0 +1,26 @@
+ORDER TABLE
+
+
+LOCKERS TABLE
+A
+B
+C
+
+COMPARTMENT TABLE
+symbol:z Locker: 1   Fk   A
+symbol:y Locker: 2   Fk   A
+symbol:x Locker: 3   Fk   A
+
+symbol:w Locker: 1   Fk   B
+symbol:r Locker: 2   Fk   B
+symbol:t Locker: 3   Fk   B
+
+symbol:u Locker: 1   Fk   C
+symbol:v Locker: 2   Fk   C
+symbol:u Locker: 3   Fk   C
+
+TASK TABLE
+Fk A    action: idle
+Fk B    action: open 
+Fk C    action: idle
+

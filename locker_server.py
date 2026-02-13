@@ -1,3 +1,6 @@
+# MAke it so that the periodic call it does to the central server
+#ALSO requests what task it should do
+
 import httpx
 import asyncio
 from fastapi import FastAPI
